@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Join — Ubumenyi Hub{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+  <div class="auth-card">
+    <h1>Join Ubumenyi Hub</h1>
+    <p>Free forever. Learn Rwanda’s culture online and offline.</p>
+
+    <form method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="message error">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      {% for field in form %}
+        <p>
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<small class="help">{{ field.help_text|safe }}</small>{% endif %}
+          {% if field.errors %}<small class="error">{{ field.errors.0 }}</small>{% endif %}
+        </p>
+      {% endfor %}
+
+      <button class="btn-primary btn-wide">Create account</button>
+    </form>
+
+    <p class="auth-note">Already a member? <a href="{% url 'login' %}">Sign in</a></p>
+  </div>
+</section>
+{% endblock %}

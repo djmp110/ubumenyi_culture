@@ -1,0 +1,42 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="{% url 'home' %}" class="brand">
+      <div><span class="brand-mark">UBUMENYI</span><span class="brand-hub"> HUB</span></div>
+      <span class="brand-sub">Rwanda’s Culture Learning Platform</span>
+    </a>
+
+    <nav class="main-nav">
+      <a href="{% url 'home' %}"><i class="fas fa-house"></i> Home</a>
+
+      <div class="nav-dropdown">
+        <a href="#" class="dropdown-toggle">
+          <i class="fas fa-book-open"></i> Learn <i class="fas fa-caret-down"></i>
+        </a>
+        <div class="dropdown-menu">
+          {% for p in pillars %}
+            <a href="{% url 'pillar_detail' p.slug %}">
+              <span>{{ p.icon }}</span> {{ p.name }}
+              {% if p.name_kinyarwanda %}<small>{{ p.name_kinyarwanda }}</small>{% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <a href="{% url 'live_sessions' %}"><i class="fas fa-video"></i> Live</a>
+      <a href="{% url 'forum' %}"><i class="fas fa-comments"></i> Forum</a>
+      <a href="{% url 'about' %}"><i class="fas fa-circle-info"></i> About</a>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn-nav">
+          <i class="fas fa-user"></i> {{ user.first_name|default:user.username }}
+        </a>
+        <a href="{% url 'logout' %}" class="btn-nav btn-outline">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn-nav btn-outline">Sign In</a>
+        <a href="{% url 'signup' %}" class="btn-nav">Join Free</a>
+      {% endif %}
+    </nav>
+
+    <button class="menu-toggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</header>

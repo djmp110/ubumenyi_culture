@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ pillar.name }} — Ubumenyi Hub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pillar.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero" >
+  <h1>{{ pillar.icon }} {{ pillar.name }}</h1>
+  {% if pillar.name_kinyarwanda %}<h2 class="kiny">{{ pillar.name_kinyarwanda }}</h2>{% endif %}
+  <p>{{ pillar.description }}</p>
+</section>
+
+<section class="page-content">
+  <h2>Chapters</h2>
+  {% if chapters %}
+    <div class="chapter-list">
+      {% for c in chapters %}
+        <a href="{% url 'chapter_detail' pillar.slug c.slug %}" class="chapter-row">
+          <div class="chapter-row-left">
+            <span class="chapter-type-pill">{{ c.get_content_type_display }}</span>
+            <h3>{{ c.title }}</h3>
+            {% if c.title_kinyarwanda %}<h4>{{ c.title_kinyarwanda }}</h4>{% endif %}
+            <p>{{ c.summary|truncatewords:22 }}</p>
+          </div>
+          <div class="chapter-row-right">
+            <span>{{ c.duration_minutes }} min</span>
+            <span class="arrow">→</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No chapters yet in this pillar. Check back soon.</p>
+  {% endif %}
+</section>
+{% endblock %}

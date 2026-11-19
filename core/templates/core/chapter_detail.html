@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ chapter.title }} — Ubumenyi Hub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/chapter.css' %}">
+{% endblock %}
+
+{% block content %}
+<article class="chapter-view">
+  <nav class="breadcrumb">
+    <a href="{% url 'home' %}">Home</a> /
+    <a href="{% url 'pillar_detail' chapter.pillar.slug %}">{{ chapter.pillar.name }}</a> /
+    <span>{{ chapter.title }}</span>
+  </nav>
+
+  <header class="chapter-head">
+    <span class="chapter-type-pill">{{ chapter.get_content_type_display }}</span>
+    <h1>{{ chapter.title }}</h1>
+    {% if chapter.title_kinyarwanda %}<h2 class="kiny">{{ chapter.title_kinyarwanda }}</h2>{% endif %}
+    <p class="chapter-summary">{{ chapter.summary }}</p>
+  </header>
+
+  <section class="chapter-media">
+    {% if chapter.content_type == 'video' and chapter.video_url %}
+      <div class="video-wrap">
+        <iframe src="{{ chapter.video_url }}" allowfullscreen
+                title="{{ chapter.title }}"></iframe>
+      </div>
+    {% elif chapter.content_type == 'audio' and chapter.audio_file %}
+      <audio controls src="{{ chapter.audio_file.url }}"></audio>
+    {% elif chapter.content_type == 'book' and chapter.book_file %}
+      <a href="{{ chapter.book_file.url }}" class="btn-primary" target="_blank">
+        <i class="fas fa-file-pdf"></i> Open book
+      </a>
+    {% endif %}
+
+    {% if chapter.body %}
+      <div class="chapter-body">{{ chapter.body|linebreaks }}</div>
+    {% endif %}
+  </section>
+
+  <section class="chapter-actions">
+    <form method="post" style="display:inline;">
+      {% csrf_token %}
+      <button name="mark_complete" class="btn-primary">
+        <i class="fas fa-check"></i>
+        {% if enrollment.completed %}Completed ✓{% else %}Mark as complete{% endif %}
+      </button>
+    </form>
+
+    {% if chapter.quiz %}
+      <a href="{% url 'take_quiz' chapter.pillar.slug chapter.slug %}" class="btn-ghost">
+        <i class="fas fa-question-circle"></i> Take the quiz
+      </a>
+    {% endif %}
+  </section>
+
+  <section class="notes-section">
+    <h2>Your notes</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ note_form.as_p }}
+      <button name="save_note" class="btn-primary">Save notes</button>
+    </form>
+  </section>
+</article>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/chapter.js' %}" defer></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{
+  "name": "Ubumenyi Hub — Learn Rwandan Culture",
+  "short_name": "Ubumenyi",
+  "description": "Learn Rwanda's culture — language, history, arts, heritage.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b2b26",
+  "theme_color": "#0b2b26",
+  "icons": [
+    {
+      "src": "/static/image/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/image/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

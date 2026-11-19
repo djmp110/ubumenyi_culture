@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Dashboard — Ubumenyi Hub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="dashboard-page">
+  <h1>Welcome back, {{ user.first_name|default:user.username }} 👋</h1>
+
+  <div class="dash-grid">
+    <div class="dash-card">
+      <h2>Your progress</h2>
+      {% for e in enrollments %}
+        <div class="progress-row">
+          <div>
+            <strong>{{ e.chapter.title }}</strong>
+            <small>{{ e.chapter.pillar.name }} · {{ e.progress_percent }}% complete</small>
+          </div>
+          {% if e.completed %}<span class="badge done">Done</span>
+          {% else %}<span class="badge">In progress</span>{% endif %}
+        </div>
+      {% empty %}
+        <p>You haven’t started any chapters yet. <a href="{% url 'home' %}">Browse pillars →</a></p>
+      {% endfor %}
+    </div>
+
+    <div class="dash-card">
+      <h2>Your certificates</h2>
+      {% for c in certificates %}
+        <div class="cert-row">
+          <div><strong>{{ c.chapter.title }}</strong><br><small>Issued {{ c.issued_at|date:"M j, Y" }}</small></div>
+          <a href="{% url 'certificate_view' c.certificate_id %}" class="btn-small">View</a>
+        </div>
+      {% empty %}
+        <p>Complete a quiz with a passing score to earn your first certificate.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

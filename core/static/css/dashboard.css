@@ -1,0 +1,14 @@
+.dashboard-page { max-width: 1200px; margin: 40px auto; padding: 0 32px; }
+.dashboard-page h1 { font-family: var(--font-serif); font-size: 34px; color: var(--green-dark); margin-bottom: 30px; }
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.dash-card { background: white; border-radius: var(--radius-lg); padding: 28px; border: 1px solid var(--border); }
+.dash-card h2 { font-family: var(--font-serif); font-size: 20px; color: var(--green-dark); margin-bottom: 18px; }
+.progress-row, .cert-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid #f0f6f2;
+}
+.progress-row:last-child, .cert-row:last-child { border-bottom: 0; }
+.progress-row small, .cert-row small { color: var(--muted); font-size: 12px; }
+.badge { font-size: 11px; padding: 4px 10px; border-radius: 30px; background: #f5e8c5; color: #7a5c11; font-weight: 700; }
+.badge.done { background: #d4f0e3; color: #1c523a; }
+@media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }

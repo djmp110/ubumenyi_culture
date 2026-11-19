@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sign in — Ubumenyi Hub{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+  <div class="auth-card">
+    <h1>Welcome back</h1>
+    <p>Sign in to continue your cultural learning journey.</p>
+
+    <form method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="message error">{{ form.non_field_errors }}</div>
+      {% endif %}
+      <p>
+        <label for="id_username">Username</label>
+        <input type="text" name="username" id="id_username"
+               autofocus required maxlength="150">
+        {% if form.username.errors %}<small class="error">{{ form.username.errors.0 }}</small>{% endif %}
+      </p>
+      <p>
+        <label for="id_password">Password</label>
+        <input type="password" name="password" id="id_password" required>
+        {% if form.password.errors %}<small class="error">{{ form.password.errors.0 }}</small>{% endif %}
+      </p>
+      <button class="btn-primary btn-wide">Sign in</button>
+    </form>
+
+    <p class="auth-note">
+      <a href="{% url 'password_reset' %}">Forgot password?</a>
+    </p>
+    <p class="auth-note">
+      New here? <a href="{% url 'signup' %}">Create a free account</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

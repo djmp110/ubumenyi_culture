@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Ubumenyi Hub — Learn Rwanda’s Culture{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-badge">Ubumenyi ni Ubusenge · Knowledge is Light</span>
+      <h1>Learn Rwanda’s culture — in Kinyarwanda and English.</h1>
+      <p class="hero-lead">
+        Explore language, history, arts and heritage through short lessons,
+        audio recordings, proverbs, quizzes, and live sessions with elders
+        and teachers. Works offline. Free forever.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pillars" class="btn-primary">Start Learning</a>
+        <a href="{% url 'about' %}" class="btn-ghost">Our Story →</a>
+      </div>
+
+      <div class="hero-stats">
+        <div><strong>{{ pillars.count }}</strong><span>Cultural pillars</span></div>
+        <div><strong>100%</strong><span>Free & offline-first</span></div>
+        <div><strong>Kinyarwanda</strong><span>+ English</span></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="{% static 'image/hero.jpg' %}" alt="Rwandan intore dancers">
+    </div>
+  </div>
+</section>
+
+<section class="pillars" id="pillars">
+  <div class="section-head">
+    <h2>Four paths into Rwandan culture</h2>
+    <p>Choose a pillar to begin. Each has chapters, quizzes, and a certificate.</p>
+  </div>
+
+  <div class="pillar-grid">
+    {% for p in pillars %}
+      <a href="{% url 'pillar_detail' p.slug %}" class="pillar-card" style="--accent: {{ p.color }}">
+        <div class="pillar-icon">{{ p.icon }}</div>
+        <h3>{{ p.name }}</h3>
+        {% if p.name_kinyarwanda %}<h4>{{ p.name_kinyarwanda }}</h4>{% endif %}
+        <p>{{ p.description|truncatewords:22 }}</p>
+        <span class="pillar-cta">Explore pillar →</span>
+      </a>
+    {% empty %}
+      <p class="empty">No pillars yet — add some from the Django admin.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="featured">
+  <div class="section-head">
+    <h2>Featured lessons</h2>
+    <p>Start with one of these handpicked chapters.</p>
+  </div>
+  <div class="chapter-grid">
+    {% for c in featured_chapters %}
+      <a href="{% url 'chapter_detail' c.pillar.slug c.slug %}" class="chapter-card">
+        <div class="chapter-type">{{ c.get_content_type_display }}</div>
+        <h3>{{ c.title }}</h3>
+        {% if c.title_kinyarwanda %}<h4>{{ c.title_kinyarwanda }}</h4>{% endif %}
+        <p>{{ c.summary|truncatewords:18 }}</p>
+        <span class="chapter-meta">{{ c.pillar.icon }} {{ c.pillar.name }} · {{ c.duration_minutes }} min</span>
+      </a>
+    {% empty %}
+      <p>No published chapters yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% if upcoming_sessions %}
+<section class="live-preview">
+  <div class="section-head">
+    <h2>Upcoming live sessions</h2>
+  </div>
+  <div class="live-grid">
+    {% for s in upcoming_sessions %}
+      <div class="live-card">
+        <div class="live-time">{{ s.starts_at|date:"D, M j · H:i" }}</div>
+        <h3>{{ s.title }}</h3>
+        <p>Hosted by {{ s.host }}</p>
+        {% if s.join_url %}<a href="{{ s.join_url }}" class="btn-small">Join</a>{% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="cta-band">
+  <h2>Ready to preserve and celebrate Rwandan culture?</h2>
+  <p>Join thousands of learners, teachers, and elders.</p>
+  <a href="{% url 'signup' %}" class="btn-primary">Create your free account</a>
+</section>
+
+{% endblock %}

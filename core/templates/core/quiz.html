@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Quiz — {{ chapter.title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="quiz-page">
+  <h1>Quiz: {{ chapter.title }}</h1>
+  <p class="quiz-sub">Pass mark: {{ quiz.pass_score }}%</p>
+
+  <form method="post" class="quiz-form">
+    {% csrf_token %}
+    {% for q in quiz.questions.all %}
+      <fieldset class="quiz-question">
+        <legend>{{ forloop.counter }}. {{ q.text }}</legend>
+        {% for c in q.choices.all %}
+          <label class="quiz-choice">
+            <input type="radio" name="q_{{ q.id }}" value="{{ c.id }}" required>
+            {{ c.text }}
+          </label>
+        {% endfor %}
+      </fieldset>
+    {% endfor %}
+    <button type="submit" class="btn-primary">Submit answers</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+# Virtual environment (your environment folder is named invironment, adjust accordingly)
+invironment/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Django local database
+db.sqlite3
+
+# Environment variables and sensitive information
+.env
+
+# Media files (uploaded by users, not needed for code deployment)
+media/
+
+# IDE configuration
+.vscode/
+.idea/
+
+# System files
+.DS_Store

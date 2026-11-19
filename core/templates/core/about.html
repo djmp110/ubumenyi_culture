@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About — Ubumenyi Hub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pillar.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <h1>About Ubumenyi Hub</h1>
+  <p>Preserving Rwandan culture through accessible, bilingual, offline-first learning.</p>
+</section>
+
+<section class="page-content">
+  <div class="content-block">
+    <h2>Our Mission</h2>
+    <p>
+      Ubumenyi Hub exists to make Rwandan culture learnable, shareable, and
+      verifiable — for every Rwandan, in Rwanda and abroad. We believe culture
+      is a living library. Our platform keeps it alive online and offline, in
+      Kinyarwanda and English.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>What We Teach</h2>
+    <ul class="values-list">
+      <li><strong>Language</strong> — Kinyarwanda reading, writing, proverbs (<em>imigani</em>), idioms.</li>
+      <li><strong>History</strong> — Pre-colonial kingdoms, colonial era, independence, unity and reconciliation.</li>
+      <li><strong>Arts & Music</strong> — <em>Intore</em> dance, <em>ingoma</em> drumming, crafts, poetry.</li>
+      <li><strong>Heritage & Environment</strong> — Sacred sites, national parks, traditional food, ceremonies.</li>
+    </ul>
+  </div>
+
+  <div class="content-block">
+    <h2>Our Values</h2>
+    <ul class="values-list">
+      <li><strong>Accessibility</strong> — Offline-first so learning reaches every corner of Rwanda.</li>
+      <li><strong>Bilingualism</strong> — Every lesson in Kinyarwanda and English.</li>
+      <li><strong>Trust</strong> — Blockchain-style verifiable certificates.</li>
+      <li><strong>Respect</strong> — Content reviewed with elders, historians, and cultural institutions.</li>
+    </ul>
+  </div>
+
+  <div class="content-block">
+    <h2>Closing Note</h2>
+    <p><em>Ubumenyi ni Ubusenge.</em> Knowledge is Light. Together, we carry Rwanda’s culture forward.</p>
+  </div>
+</section>
+{% endblock %}

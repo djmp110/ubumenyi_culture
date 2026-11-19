@@ -1,0 +1,51 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <h3>Learn</h3>
+        <ul>
+          {% for p in pillars %}
+            <li><a href="{% url 'pillar_detail' p.slug %}">{{ p.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Ubumenyi Hub</h3>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'forum' %}">Community Forum</a></li>
+          <li><a href="{% url 'live_sessions' %}">Live Sessions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Get Involved</h3>
+        <ul>
+          <li><a href="{% url 'signup' %}">Become a Learner</a></li>
+          <li><a href="#">Become a Teacher</a></li>
+          <li><a href="#">Contribute Content</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-brand">
+        <h3>Ubumenyi Hub</h3>
+        <p>“Ubumenyi ni Ubusenge” — Knowledge is Light.</p>
+        <p>Preserving Rwandan culture through offline-first, bilingual learning.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {% now "Y" %} Ubumenyi Hub — Knowledge for All Rwandans.</p>
+      <p class="footer-credit">Built with respect for Rwandan heritage.</p>
+    </div>
+  </div>
+</footer>

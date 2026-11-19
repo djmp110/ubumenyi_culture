@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Certificate — Ubumenyi Hub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="certificate-page">
+  <div class="certificate-frame">
+    <p class="cert-kicker">Ubumenyi Hub · Certificate of Completion</p>
+    <h1>{{ cert.user.get_full_name|default:cert.user.username }}</h1>
+    <p class="cert-body">has successfully completed</p>
+    <h2>{{ cert.chapter.title }}</h2>
+    <p class="cert-body">in the <strong>{{ cert.chapter.pillar.name }}</strong> pillar.</p>
+    <p class="cert-id">Certificate ID: {{ cert.certificate_id }}</p>
+    <p class="cert-date">Issued: {{ cert.issued_at|date:"F j, Y" }}</p>
+    <p class="cert-motto">Ubumenyi ni Ubusenge · Knowledge is Light</p>
+    <p class="cert-id" style="margin-top: 20px;">
+      Verify publicly: /verify/{{ cert.certificate_id }}/
+    </p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Your Profile — Ubumenyi Hub{% endblock %}
+
+{% block content %}
+<section class="dashboard-page">
+  <h1>Your Profile</h1>
+
+  <div class="dash-grid">
+    <div class="dash-card">
+      <h2>Account info</h2>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Name:</strong> {{ user.get_full_name|default:"—" }}</p>
+      <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
+      <p><strong>Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+      <a href="{% url 'password_reset' %}" class="btn-primary" style="margin-top: 16px;">Change password</a>
+    </div>
+
+    <div class="dash-card">
+      <h2>Learning summary</h2>
+      <p>Chapters started: <strong>{{ user.enrollments.count }}</strong></p>
+      <p>Chapters completed: <strong>{{ user.enrollments.all|length }}</strong></p>
+      <p>Certificates earned: <strong>{{ user.certificates.count }}</strong></p>
+      <a href="{% url 'dashboard' %}" class="btn-ghost" style="margin-top: 16px;">Go to dashboard →</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

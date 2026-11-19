@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ topic.title }} — Forum{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forum.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="forum-topic-page">
+  <a href="{% url 'forum' %}" class="breadcrumb">← Back to forum</a>
+  <h1>{{ topic.title }}</h1>
+  <p class="topic-meta">by {{ topic.author.username }} · {{ topic.created_at|date:"M j, Y H:i" }}</p>
+  <div class="topic-body">{{ topic.body|linebreaks }}</div>
+
+  <h2>Replies ({{ replies.count }})</h2>
+  {% for r in replies %}
+    <div class="reply-card">
+      <p class="reply-meta">{{ r.author.username }} · {{ r.created_at|timesince }} ago</p>
+      <p>{{ r.body|linebreaks }}</p>
+    </div>
+  {% empty %}
+    <p>No replies yet.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <form method="post" class="reply-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn-primary">Post reply</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Sign in</a> to reply.</p>
+  {% endif %}
+</section>
+{% endblock %}

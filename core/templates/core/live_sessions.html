@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Live Sessions — Ubumenyi Hub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forum.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="forum-page">
+  <h1>Live sessions</h1>
+  <p>Scheduled conversations with elders, historians, and cultural teachers.</p>
+
+  {% for s in sessions %}
+    <div class="live-card" style="margin-top: 20px;">
+      <div class="live-time">{{ s.starts_at|date:"D, M j, Y · H:i" }}</div>
+      <h3>{{ s.title }}</h3>
+      <p>Hosted by {{ s.host }}</p>
+      {% if s.description %}<p>{{ s.description }}</p>{% endif %}
+      {% if s.join_url %}<a href="{{ s.join_url }}" class="btn-primary">Join session</a>{% endif %}
+    </div>
+  {% empty %}
+    <p>No live sessions scheduled yet. Check back soon.</p>
+  {% endfor %}
+</section>
+{% endblock %}

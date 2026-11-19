@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Result — {{ chapter.title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="quiz-page quiz-result">
+  <h1>{% if passed %}🎉 Passed!{% else %}Keep learning!{% endif %}</h1>
+  <p>Your score: <strong>{{ score }}/{{ total }}</strong> ({{ percent }}%)</p>
+
+  {% if passed %}
+    <p>Your certificate is available on your dashboard.</p>
+    <a href="{% url 'dashboard' %}" class="btn-primary">Go to dashboard</a>
+  {% else %}
+    <p>Try again — every attempt teaches something.</p>
+    <a href="{% url 'take_quiz' chapter.pillar.slug chapter.slug %}" class="btn-primary">Retake quiz</a>
+  {% endif %}
+</section>
+{% endblock %}
